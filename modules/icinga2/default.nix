@@ -85,7 +85,7 @@ in
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         Type = "forking";
-        Environmentfile = environmentfile;
+        EnvironmentFile = environmentfile;
         ExecStart = "${pkgs.icinga2}/bin/icinga2 daemon -d -D LogDir=/var/log/icinga2 -D DataDir=/var/lib/icinga2 -D CacheDir=/var/cache/icinga2 -D SpoolDir=/var/spool/icinga2 -D ConfigDir=/etc/icinga2";
         ExecReload = "${pkgs.icinga2}/lib/icinga2/safe-reload ${environmentfile}";
         PIDFile = "/run/icinga2/icinga2.pid";
@@ -102,7 +102,7 @@ in
       before = [ "icinga2.service" ];
       serviceConfig = {
         Type = "oneshot";
-        Environmentfile = environmentfile;
+        EnvironmentFile = environmentfile;
         ExecStart = prestartscript;
       };
       # We need glibc for `getent`
