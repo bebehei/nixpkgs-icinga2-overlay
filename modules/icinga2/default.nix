@@ -71,6 +71,9 @@ in
       name = cfg.user;
       description = "Icinga2 service user";
       group = cfg.group;
+      extraGroups = [
+        cfg.cmdgroup
+      ];
     };
     users.groups."${cfg.group}" = {
       name = cfg.group;
