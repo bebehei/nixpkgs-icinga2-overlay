@@ -2,6 +2,7 @@
 , boost
 , cmake
 , fetchFromGitHub
+, fetchpatch
 , flex
 , libmysqlclient
 , mariadb
@@ -29,9 +30,11 @@ stdenv.mkDerivation rec {
     # Systemd unit installation fails and is not necessary,
     # we have to write our own unit anyways
     ./nosystemdunit.patch
-    # see: https://github.com/Icinga/icinga2/pull/8581
-    # intended to get fixed on 2.13
-    ./shellimprov.patch
+    # Build with fixed init script
+    (fetchpatch {
+      url = "https://github.com/Icinga/icinga2/commit/d4251ea5ca51c2f61a786ee513d2f6936363f0c5.patch";
+      sha256 = "0yx23gsd21hiifhj5d0vbv7a28wl5ihd3mfy72dx557rfbphrvwr";
+    })
   ];
 
   cmakeFlags = [
